@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="productInfoDAOImpl" class="com.zkdx.ProductInfoDAOImpl"></bean>
+	<bean id="productService" class="com.zkdx.ProductServiceImpl">
+		<property name="productInfoDAO" ref="productInfoDAOImpl"></property>
+	</bean>
+	
+	<bean id="userDAOImpl" class="com.zkdx.UserDAOImpl"></bean>
+	<bean id="userServiceImpl" class="com.zkdx.UserServiceImpl">
+		<property name="userDAO" ref="userDAOImpl"></property>
+	</bean>
+</beans>

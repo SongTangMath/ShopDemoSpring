@@ -2,6 +2,8 @@ package com.zkdx;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeDAO employeeDAO;
 
@@ -81,7 +83,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
 
     }
 

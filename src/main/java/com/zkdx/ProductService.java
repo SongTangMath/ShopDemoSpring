@@ -1,36 +1,35 @@
- package com.zkdx;
+package com.zkdx;
 
 import java.util.List;
 
 public interface ProductService {
-   
-     public ProductInfoDAO getProductInfoDAO();      
 
-     public void setProductInfoDAO(ProductInfoDAO productInfoDAO);
-     
-     public ProductInfo getProductInfoById(int id);
+    public ProductInfoDAO getProductInfoDAO();
 
-     public ProductInfo getProductInfoByProductName(String name);
+    public void setProductInfoDAO(ProductInfoDAO productInfoDAO);
 
-     public int modifyProductByProductID(int id,String productName, int productStatus,int price,int inventoryQuantity,
-         String pictureLink,  String productPlan,int buyingPrice, String productCategory);
+    public ProductInfo getProductInfoById(int id);
 
-     public int modifyProductPictureLinkByProductID(int id, String pictureLink);
+    public ProductInfo getProductInfoByProductName(String name);
 
-     public int modifyProductPlanByProductName(String productName, String productPlan);
+    public int modifyProductByProductID(int id, String productName, int productStatus, int price, int inventoryQuantity,
+        String pictureLink, String productPlan, int buyingPrice, String productCategory);
 
-     public int modifyProductIntentoryQuantityByProductId(int id, int number);
+    public int modifyProductPictureLinkByProductID(int id, String pictureLink);
 
-     public int clearProducts();
+    public int modifyProductPlanByProductName(String productName, String productPlan);
 
-     public int insertNewProduct(String productName, int productStatus,int price,int inventoryQuantity,
-         String pictureLink,  String productPlan,int buyingPrice, String productCategory);
+    public int modifyProductIntentoryQuantityByProductId(int id, int number);
 
-     public int deleteProductByProductID(int id);
+    public int clearProducts();
 
-     public List<ProductInfo> listAllProducts();
+    public int insertNewProduct(String productName, int productStatus, int price, int inventoryQuantity,
+        String pictureLink, String productPlan, int buyingPrice, String productCategory);
 
-     public List<ProductInfo> listProductsByProductCategory(String pattern);
-    
+    public int deleteProductByProductID(int id);
+
+    public List<ProductInfo> listAllProducts();
+
+    public List<ProductInfo> listProductsByProductCategory(String pattern);
 
 }

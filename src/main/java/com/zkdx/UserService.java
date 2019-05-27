@@ -1,11 +1,19 @@
- package com.zkdx;
+package com.zkdx;
 
- public interface UserService {
-  
-     public User getUserById(int id);
-     public User getUserByUsername(String name);
-     public int modifyUserByUserName(String username, String password, String phone, String address);
-     public int clearUsers();
-     public int insertNewUser(String username, String password, String phone, String address);
-     public int deleteUserByUserName(String name);
+public interface UserService {
+    public UserDAO getUserDAO();
+
+    public void setUserDAO(UserDAO userDAO);
+
+    public User getUserById(int id);
+
+    public User getUserByUsername(String name);
+
+    public int modifyUserByUserName(String username, String password, String phone, String address);
+
+    public int clearUsers();
+
+    public int insertNewUser(String username, String password, String phone, String address);
+
+    public int deleteUserByUserName(String name);
 }

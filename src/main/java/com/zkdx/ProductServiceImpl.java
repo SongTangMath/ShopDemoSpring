@@ -1,6 +1,6 @@
 package com.zkdx;
 
-import java.util.List;
+import java.util.*;
 
 public class ProductServiceImpl implements ProductService {
     private ProductInfoDAO productInfoDAO;
@@ -121,8 +121,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductInfo> listProductsByProductCategory(String pattern) {
-        // TODO Auto-generated method stub
-        return productInfoDAO.listProductsByProductCategory(pattern);
+        if (!validateArg(pattern)) {
+            return new ArrayList<ProductInfo>();
+        } else {
+            return productInfoDAO.listProductsByProductCategory(pattern);
+        }
     }
 
 }

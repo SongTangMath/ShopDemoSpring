@@ -57,8 +57,7 @@ unique(category_name) )charset utf8mb4;
 create table extended_attribute(
 attribute_id int(10) primary key auto_increment,
 	product_id int(10) ,
-product_name varchar(60),
 attribute_name varchar(60),
 attribute_value varchar(60),
-unique(product_name,attribute_name))charset utf8mb4;
+unique(product_id,attribute_name))charset utf8mb4;
 

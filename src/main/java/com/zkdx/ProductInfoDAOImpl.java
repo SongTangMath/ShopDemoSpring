@@ -9,9 +9,16 @@ public class ProductInfoDAOImpl implements ProductInfoDAO {
     private JdbcTemplate jdbcTemplate = null;
     private RowMapper<ProductInfo> rowMapper = null;
 
+    public JdbcTemplate getJdbcTemplate() {
+        return jdbcTemplate;
+    }
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
     public ProductInfoDAOImpl() {
-        jdbcTemplate = new JdbcTemplate();
-        jdbcTemplate.setDataSource(JdbcUtil.getDataSource());
+
         rowMapper = new BeanPropertyRowMapper<ProductInfo>(ProductInfo.class);
     }
 
@@ -20,11 +27,10 @@ public class ProductInfoDAOImpl implements ProductInfoDAO {
         String sql = "SELECT* from product_info where product_info.id=?";
 
         ProductInfo info = null;
-        
-        try{
-            info=jdbcTemplate.queryForObject(sql, rowMapper, id);
-        }
-        catch(EmptyResultDataAccessException e) {
+
+        try {
+            info = jdbcTemplate.queryForObject(sql, rowMapper, id);
+        } catch (EmptyResultDataAccessException e) {
             e.printStackTrace();
         }
         return info;
@@ -33,12 +39,11 @@ public class ProductInfoDAOImpl implements ProductInfoDAO {
     @Override
     public ProductInfo getProductInfoByProductName(String name) {
         String sql = "SELECT* from product_info where product_info.product_name=?";
-        
+
         ProductInfo info = null;
-        try{
-            info=jdbcTemplate.queryForObject(sql, rowMapper, name);
-        }
-        catch(EmptyResultDataAccessException e) {
+        try {
+            info = jdbcTemplate.queryForObject(sql, rowMapper, name);
+        } catch (EmptyResultDataAccessException e) {
             e.printStackTrace();
         }
         return info;
@@ -108,11 +113,8 @@ public class ProductInfoDAOImpl implements ProductInfoDAO {
 
     public static void main(String[] args) {
 
-        ProductInfoDAO obj = new ProductInfoDAOImpl();
-        obj.modifyProductIntentoryQuantityByProductId(10, 100);
        
-        //System.out.println(obj.getProductInfoByProductName("菊花"));
-        
+
     }
 
 }

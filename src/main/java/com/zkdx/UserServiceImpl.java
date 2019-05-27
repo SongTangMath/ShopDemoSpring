@@ -8,10 +8,12 @@ public class UserServiceImpl implements UserService {
         return (s != null && !"".equals(s));
     }
 
+    @Override
     public UserDAO getUserDAO() {
         return userDAO;
     }
 
+    @Override
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
     }

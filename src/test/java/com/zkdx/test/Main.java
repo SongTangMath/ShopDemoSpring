@@ -8,16 +8,20 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import com.zkdx.*;
+
+import com.zkdx.database.*;
 
 public class Main {
 
     public static void main(String[] args) {
         // TODO Auto-generated method stub
         ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+        System.out.println(ctx);
         OrderInfoService orderInfoService = (OrderInfoService)ctx.getBean("orderInfoService");
         EmployeeService employeeService = (EmployeeService)ctx.getBean("employeeService");
-
+        List<Employee>list=employeeService.listAllEmployees();
+        for(Employee emp:list)
+            System.out.println(emp);
     }
 
 }

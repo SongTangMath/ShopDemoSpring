@@ -30,31 +30,38 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 
-	<bean id="productInfoDAO" class="com.zkdx.ProductInfoDAOImpl">
+	<bean id="productInfoDAO" class="com.zkdx.database.ProductInfoDAOImpl">
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
-	<bean id="productService" class="com.zkdx.ProductServiceImpl">
+	<bean id="productService" class="com.zkdx.database.ProductServiceImpl">
 		<property name="productInfoDAO" ref="productInfoDAO"></property>
 	</bean>
 
-	<bean id="userDAO" class="com.zkdx.UserDAOImpl">
+	<bean id="userDAO" class="com.zkdx.database.UserDAOImpl">
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
-	<bean id="userService" class="com.zkdx.UserServiceImpl">
+	<bean id="userService" class="com.zkdx.database.UserServiceImpl">
 		<property name="userDAO" ref="userDAO"></property>
 	</bean>
 
-	<bean id="employeeDAO" class="com.zkdx.EmployeeDAOImpl">
+	<bean id="employeeDAO" class="com.zkdx.database.EmployeeDAOImpl">
 	<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
-	<bean id="employeeService" class="com.zkdx.EmployeeServiceImpl">
+	<bean id="employeeService" class="com.zkdx.database.EmployeeServiceImpl">
 		<property name="employeeDAO" ref="employeeDAO"></property>
 	</bean>
 	
-	<bean id="orderInfoDAO" class="com.zkdx.OrderInfoDAOImpl">
+	<bean id="orderInfoDAO" class="com.zkdx.database.OrderInfoDAOImpl">
 	<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
-	<bean id="orderInfoService" class="com.zkdx.OrderInfoServiceImpl">
+	<bean id="orderInfoService" class="com.zkdx.database.OrderInfoServiceImpl">
 		<property name="orderInfoDAO" ref="orderInfoDAO"></property>
+	</bean>
+	
+	<bean id="extendedAttributeDAO" class="com.zkdx.database.ExtendedAttributeDAOImpl">
+	<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+	<bean id="extendedAttributeService" class="com.zkdx.database.ExtendedAttributeServiceImpl">
+		<property name="extendedAttributeDAO" ref="extendedAttributeDAO"></property>
 	</bean>
 </beans>

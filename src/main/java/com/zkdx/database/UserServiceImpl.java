@@ -3,11 +3,13 @@ package com.zkdx.database;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
-
-@Service
+/**
+ * 
+ * @author ts
+ * @date 2019/06/01
+ */
 public class UserServiceImpl implements UserService {
-    
-    
+
     private UserDAO userDAO;
 
     private boolean validateArg(String s) {

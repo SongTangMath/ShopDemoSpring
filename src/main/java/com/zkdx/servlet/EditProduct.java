@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import com.zkdx.database.CategoryService;
 import com.zkdx.database.EmployeeService;
 import com.zkdx.database.ExtendedAttributeService;
@@ -43,7 +42,8 @@ public class EditProduct {
     private UserService userService = (UserService)SpringUtil.getBean("userService");
     private ProductService productService = (ProductService)SpringUtil.getBean("productService");
     private CategoryService categoryService = (CategoryService)SpringUtil.getBean("categoryService");
-    ExtendedAttributeService extendedAttributeService=(ExtendedAttributeService)SpringUtil.getBean("extendedAttributeService");
+    ExtendedAttributeService extendedAttributeService =
+        (ExtendedAttributeService)SpringUtil.getBean("extendedAttributeService");
 
     @RequestMapping(value = "/SetOnShelf/{id}")
     public String setOnShelf(Map<String, Object> map, @PathVariable("id") Integer id) {
@@ -171,226 +171,229 @@ public class EditProduct {
         map.put("products", list);
         return "purchaser";
     }
-    
+
     @RequestMapping(value = "/AddProductsFromExcel")
-    public String addProductsFromExcel(Map<String, Object> map,HttpServletRequest request,
+    public String addProductsFromExcel(Map<String, Object> map, HttpServletRequest request,
         @RequestParam(value = "excelFile", required = false) MultipartFile multipartFile) {
         String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-        + request.getContextPath() + "/";
+            + request.getContextPath() + "/";
 
-    File file = null;
-   
-            String fileName = multipartFile.getOriginalFilename();
-            System.out.println("fileSize:" + multipartFile.getSize());
-            String filePathPart1 = request.getServletContext().getRealPath("/UploadedExcels");
-            long time = System.currentTimeMillis();
-            String filePathPart2 = time + fileName;
+        File file = null;
 
-            file = new File(filePathPart1);
-            if (!file.exists()) {
-                file.mkdirs();
-            }
-            file = new File(file, filePathPart2);
-            System.out.println(file.getAbsolutePath());
-            try {
-                multipartFile.transferTo(file);
-            } catch (Exception e) {                    
-                e.printStackTrace();
-            }
-        
-    
-    Workbook workBook = null;
-    String path = file.getAbsolutePath();
-    if (path.endsWith("xlsx")) {
+        String fileName = multipartFile.getOriginalFilename();
+        System.out.println("fileSize:" + multipartFile.getSize());
+        String filePathPart1 = request.getServletContext().getRealPath("/UploadedExcels");
+        long time = System.currentTimeMillis();
+        String filePathPart2 = time + fileName;
+
+        file = new File(filePathPart1);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        file = new File(file, filePathPart2);
+        System.out.println(file.getAbsolutePath());
         try {
-           
-                workBook = new XSSFWorkbook(file);
-            
+            multipartFile.transferTo(file);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-    } else if (path.endsWith("xls")) {
-        try {
-            workBook = new HSSFWorkbook(new FileInputStream(file));
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-             e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-             e.printStackTrace();
+
+        Workbook workBook = null;
+        String path = file.getAbsolutePath();
+        if (path.endsWith("xlsx")) {
+            try {
+
+                workBook = new XSSFWorkbook(file);
+
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        } else if (path.endsWith("xls")) {
+            try {
+                workBook = new HSSFWorkbook(new FileInputStream(file));
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
-    }
-    if(workBook==null) {
-        return "purchaser";
-    }
-    Sheet sheet = workBook.getSheetAt(0);
-   
-    DataFormatter formatter = new DataFormatter();
-    
-    int firstRowNum = sheet.getFirstRowNum();
-    int lastRowNum = sheet.getLastRowNum();
-    System.out.println("firstRowNum: " + firstRowNum + "lastRowNum: " + lastRowNum);
-    for (int rIndex = firstRowNum; rIndex <= lastRowNum; rIndex++) {
-
-        Row row = sheet.getRow(rIndex);
-        if (row == null) {
-            continue;
+        if (workBook == null) {
+            return "purchaser";
         }
-        int firstCellNum = row.getFirstCellNum();
-        int lastCellNum = row.getLastCellNum();
+        Sheet sheet = workBook.getSheetAt(0);
 
-        System.out.println("firstCellNum: " + firstCellNum + "lastCellNum: " + lastCellNum);
-        if (rIndex == 0) {
-            if (firstCellNum != 0 || lastCellNum != 5) {
-                break;
-            }
-            boolean checkFirstRow = true;
-            for (int cIndex = firstCellNum; cIndex <= lastCellNum; cIndex++) {
-                Cell cell = row.getCell(cIndex);
-                String text = formatter.formatCellValue(cell);
-                System.out.print(cIndex + " " + text + " ");
-                switch (cIndex) {
+        DataFormatter formatter = new DataFormatter();
 
-                    case 0:
-                        if (!"序号".equals(text)) {
-                            checkFirstRow = false;
-                        }
-                        break;
-                    case 1:
-                        if (!"商品名称".equals(text)) {
-                            checkFirstRow = false;
-                        }
-                        break;
-                    case 2:
-                        if (!"商品售价".equals(text)) {
-                            checkFirstRow = false;
-                        }
-                        break;
-                    case 3:
-                        if (!"商品进价".equals(text)) {
-                            checkFirstRow = false;
-                        }
-                        break;
-                    case 4:
-                        if (!"商品分类".equals(text)) {
-                            checkFirstRow = false;
-                        }
-                        break;
-                    default:
-                        break;
-                }
+        int firstRowNum = sheet.getFirstRowNum();
+        int lastRowNum = sheet.getLastRowNum();
+        System.out.println("firstRowNum: " + firstRowNum + "lastRowNum: " + lastRowNum);
+        for (int rIndex = firstRowNum; rIndex <= lastRowNum; rIndex++) {
 
-            }
-            if (!checkFirstRow) {
-                System.out.println("输入文件格式错误");
-                break;
-            }
-        } else {
-            int price = -1, buyingPrice = -1;
-            String productname = null, productCategory = null;
-
-            for (int cIndex = firstCellNum; cIndex <= lastCellNum; cIndex++) {
-                Cell cell = row.getCell(cIndex);
-                String text = formatter.formatCellValue(cell);
-                System.out.print(cIndex + " " + text + " ");
-
-                switch (cIndex) {
-
-                    case 1:
-                        productname = text;
-                        break;
-                    case 2:
-                        try {
-                            price = Integer.parseInt(text);
-                        } catch (NumberFormatException e) {
-                            System.out.println("NumberFormatException");
-                        }
-
-                        break;
-                    case 3:
-                        try {
-                            buyingPrice = Integer.parseInt(text);
-                        } catch (NumberFormatException e) {
-                            System.out.println("NumberFormatException");
-                        }
-                        break;
-                    case 4:
-                        productCategory = text;
-                        break;
-                    default:
-                        break;
-                }
-
-            }
-
-            if (price == -1 || buyingPrice == -1 || productname == null || "".equals(productname)
-                || productCategory == null || "".equals(productCategory)) {
+            Row row = sheet.getRow(rIndex);
+            if (row == null) {
                 continue;
             }
-            productService.insertNewProduct(productname, 0, buyingPrice, 0, "", "", buyingPrice, productCategory);
+            int firstCellNum = row.getFirstCellNum();
+            int lastCellNum = row.getLastCellNum();
+
+            System.out.println("firstCellNum: " + firstCellNum + "lastCellNum: " + lastCellNum);
+            if (rIndex == 0) {
+                if (firstCellNum != 0 || lastCellNum != 5) {
+                    break;
+                }
+                boolean checkFirstRow = true;
+                for (int cIndex = firstCellNum; cIndex <= lastCellNum; cIndex++) {
+                    Cell cell = row.getCell(cIndex);
+                    String text = formatter.formatCellValue(cell);
+                    System.out.print(cIndex + " " + text + " ");
+                    switch (cIndex) {
+
+                        case 0:
+                            if (!"序号".equals(text)) {
+                                checkFirstRow = false;
+                            }
+                            break;
+                        case 1:
+                            if (!"商品名称".equals(text)) {
+                                checkFirstRow = false;
+                            }
+                            break;
+                        case 2:
+                            if (!"商品售价".equals(text)) {
+                                checkFirstRow = false;
+                            }
+                            break;
+                        case 3:
+                            if (!"商品进价".equals(text)) {
+                                checkFirstRow = false;
+                            }
+                            break;
+                        case 4:
+                            if (!"商品分类".equals(text)) {
+                                checkFirstRow = false;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
+                if (!checkFirstRow) {
+                    System.out.println("输入文件格式错误");
+                    break;
+                }
+            } else {
+                int price = -1, buyingPrice = -1;
+                String productname = null, productCategory = null;
+
+                for (int cIndex = firstCellNum; cIndex <= lastCellNum; cIndex++) {
+                    Cell cell = row.getCell(cIndex);
+                    String text = formatter.formatCellValue(cell);
+                    System.out.print(cIndex + " " + text + " ");
+
+                    switch (cIndex) {
+
+                        case 1:
+                            productname = text;
+                            break;
+                        case 2:
+                            try {
+                                price = Integer.parseInt(text);
+                            } catch (NumberFormatException e) {
+                                System.out.println("NumberFormatException");
+                            }
+
+                            break;
+                        case 3:
+                            try {
+                                buyingPrice = Integer.parseInt(text);
+                            } catch (NumberFormatException e) {
+                                System.out.println("NumberFormatException");
+                            }
+                            break;
+                        case 4:
+                            productCategory = text;
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
+
+                if (price == -1 || buyingPrice == -1 || productname == null || "".equals(productname)
+                    || productCategory == null || "".equals(productCategory)) {
+                    continue;
+                }
+                productService.insertNewProduct(productname, 0, buyingPrice, 0, "", "", buyingPrice, productCategory);
+            }
+
         }
 
-    }
-    
-        
         List<ProductInfo> list = productService.listAllProducts();
         map.put("products", list);
         return "purchaser";
     }
-    @RequestMapping(value = "/DeleteCategory")   
+
+    @RequestMapping(value = "/DeleteCategory")
     public String deleteCategory() {
         return "delete_category";
     }
-    
-    @RequestMapping(value = "/GiveUpDeleteCategory")   
+
+    @RequestMapping(value = "/GiveUpDeleteCategory")
     public String giveUpDeleteCategory() {
         return "purchaser";
     }
+
     @RequestMapping(value = "/DeleteCategoryConfirmed")
-    public String DeleteCategoryConfirmed(String categoryNameToDel) {
-        if(categoryNameToDel==null||"".equals(categoryNameToDel))
-        return "purchaser";
+    public String deleteCategoryConfirmed(String categoryNameToDel) {
+        if (categoryNameToDel == null || "".equals(categoryNameToDel))
+            return "purchaser";
         else {
             categoryService.deleteCategoryAndItsSubCategoriesByName(categoryNameToDel);
         }
         return "purchaser";
     }
-    
-    @RequestMapping(value = "/EditExtendedAttribute/{id}")   
-    public String editExtendedAttribute(@PathVariable("id") Integer id,Map<String,Object>map) {
-        if(id==null)return "purchaser";
+
+    @RequestMapping(value = "/EditExtendedAttribute/{id}")
+    public String editExtendedAttribute(@PathVariable("id") Integer id, Map<String, Object> map) {
+        if (id == null)
+            return "purchaser";
         else {
             map.put("productInfo", productService.getProductInfoById(id));
-            map.put("listAttributes", extendedAttributeService.listAttributesByProductID(id));            
+            map.put("listAttributes", extendedAttributeService.listAttributesByProductID(id));
         }
         return "edit_extended_attribute";
     }
-    
-    @RequestMapping(value = "/GiveUp")   
+
+    @RequestMapping(value = "/GiveUp")
     public String giveUp() {
         return "purchaser";
     }
-    
-    @RequestMapping(value = "/DeleteExtendedAttribute/{id}")   
-    public String DeleteExtendedAttribute(@PathVariable("id") Integer id,Map<String,Object>map) {
-        if(id==null)return "purchaser";
+
+    @RequestMapping(value = "/DeleteExtendedAttribute/{id}")
+    public String deleteExtendedAttribute(@PathVariable("id") Integer id, Map<String, Object> map) {
+        if (id == null)
+            return "purchaser";
         else {
             extendedAttributeService.deleteExtendedAttributeByID(id);
             map.put("productInfo", productService.getProductInfoById(id));
-            map.put("listAttributes", extendedAttributeService.listAttributesByProductID(id));            
+            map.put("listAttributes", extendedAttributeService.listAttributesByProductID(id));
         }
         return "edit_extended_attribute";
     }
-    
-    @RequestMapping(value = "/AddExtendedAttribute/{id}")   
-    public String AddExtendedAttribute(@PathVariable("id") Integer id,
-        String attributeName,String attributeValue,Map<String,Object>map) {
-        if(id==null||attributeName==null||attributeValue==null)return "purchaser";
+
+    @RequestMapping(value = "/AddExtendedAttribute/{id}")
+    public String addExtendedAttribute(@PathVariable("id") Integer id, String attributeName, String attributeValue,
+        Map<String, Object> map) {
+        if (id == null || attributeName == null || attributeValue == null)
+            return "purchaser";
         else {
             extendedAttributeService.insertNewExtendedAttribute(id, attributeName, attributeValue);
             map.put("productInfo", productService.getProductInfoById(id));
-            map.put("listAttributes", extendedAttributeService.listAttributesByProductID(id));            
+            map.put("listAttributes", extendedAttributeService.listAttributesByProductID(id));
         }
         return "edit_extended_attribute";
     }

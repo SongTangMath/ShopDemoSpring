@@ -31,10 +31,13 @@ public interface ProductService {
     public List<ProductInfo> listAllProducts();
 
     public List<ProductInfo> listProductsByProductCategory(String pattern);
-    
+
     public int modifyProductStatusByProductId(int id, int status);
+
     public List<ProductInfo> listStatus0Products();
+
     public List<ProductInfo> listStatus0ProductsByProductCategory(String pattern);
+
     public int modifyProductPlanByProductID(int id, String productPlan);
 
 }

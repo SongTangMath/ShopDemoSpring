@@ -20,14 +20,15 @@ public class CustomerService {
     private OrderInfoService orderInfoService = (OrderInfoService)SpringUtil.getBean("orderInfoService");
 
     @RequestMapping("CustomerServiceQueryUser")
-    public String CustomerServiceQueryUser(Map<String, Object> map, String username) {
+    public String customerServiceQueryUser(Map<String, Object> map, String username) {
         System.out.println(username);
-        if (username == null)
+        if (username == null) {
             return "customer_service";
-        else {
+        } else {
             User user = userService.getUserByUsername(username);
-            if (user != null)
+            if (user != null) {
                 map.put("userByCustomerService", user);
+            }
             map.put("userOrderInfoMap", orderInfoService.mapOrdersByUsername(username));
         }
         int totalQuantity = orderInfoService.getTotalOrderQuantity();
@@ -41,7 +42,7 @@ public class CustomerService {
         return "customer_service";
     }
     @RequestMapping("ListOrderByPage")
-    public String ListOrderByPage(Integer orderListIndex,Map<String,Object>map) {
+    public String listOrderByPage(Integer orderListIndex,Map<String,Object>map) {
         System.out.println("orderListIndex "+orderListIndex);
         int totalQuantity = orderInfoService.getTotalOrderQuantity();
         int totalPages = -1;

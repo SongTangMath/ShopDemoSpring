@@ -1,4 +1,4 @@
- package com.zkdx.servlet;
+package com.zkdx.servlet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 
- public class Quit {
-    
+public class Quit {
+
     @RequestMapping("/Quit")
     public String quit(HttpServletRequest request, HttpServletResponse response) {
         request.getSession().removeAttribute("adminName");

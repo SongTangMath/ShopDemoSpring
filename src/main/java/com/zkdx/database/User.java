@@ -2,10 +2,13 @@ package com.zkdx.database;
 
 import java.io.Serializable;
 
-public class User implements Serializable{
-    /**
-     *
-     */
+/**
+ * 
+ * @author ts
+ * @date 2019/06/01
+ */
+public class User implements Serializable {
+
     private static final long serialVersionUID = 1L;
     private int id;
     private String username, password, phone, address;

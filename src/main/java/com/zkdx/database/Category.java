@@ -1,85 +1,85 @@
- package com.zkdx.database;
+package com.zkdx.database;
 
 import java.io.Serializable;
 
-public class Category implements Serializable{
-     /**
-     *
-     */
+public class Category implements Serializable {
+    /**
+    *
+    */
     private static final long serialVersionUID = 1L;
     private int categoryID;
-     private String categoryName;
-     private int parentID;
-     private int isEnd, categoryStatus;
-     private int categoryLevel;
-     
-     public int getCategoryID() {
-         return categoryID;
-     }
+    private String categoryName;
+    private int parentID;
+    private int isEnd, categoryStatus;
+    private int categoryLevel;
 
-     public void setCategoryID(int categoryID) {
-         this.categoryID = categoryID;
-     }
+    public int getCategoryID() {
+        return categoryID;
+    }
 
-     public String getCategoryName() {
-         return categoryName;
-     }
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
+    }
 
-     public void setCategoryName(String categoryName) {
-         this.categoryName = categoryName;
-     }
+    public String getCategoryName() {
+        return categoryName;
+    }
 
-     public int getParentID() {
-         return parentID;
-     }
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
 
-     public void setParentID(int parentID) {
-         this.parentID = parentID;
-     }
+    public int getParentID() {
+        return parentID;
+    }
 
-     public int getIsEnd() {
-         return isEnd;
-     }
+    public void setParentID(int parentID) {
+        this.parentID = parentID;
+    }
 
-     public void setIsEnd(int isEnd) {
-         this.isEnd = isEnd;
-     }
+    public int getIsEnd() {
+        return isEnd;
+    }
 
-     public int getCategoryStatus() {
-         return categoryStatus;
-     }
+    public void setIsEnd(int isEnd) {
+        this.isEnd = isEnd;
+    }
 
-     public void setCategoryStatus(int categoryStatus) {
-         this.categoryStatus = categoryStatus;
-     }
+    public int getCategoryStatus() {
+        return categoryStatus;
+    }
 
-     public int getCategoryLevel() {
-         return categoryLevel;
-     }
+    public void setCategoryStatus(int categoryStatus) {
+        this.categoryStatus = categoryStatus;
+    }
 
-     public void setCategoryLevel(int categoryLevel) {
-         this.categoryLevel = categoryLevel;
-     }
+    public int getCategoryLevel() {
+        return categoryLevel;
+    }
 
-     public Category() {
+    public void setCategoryLevel(int categoryLevel) {
+        this.categoryLevel = categoryLevel;
+    }
+
+    public Category() {
         super();
     }
 
     public Category(int categoryID, String categoryName, int parentID, int isEnd, int categoryStatus,
-         int categoryLevel) {
-         super();
-         this.categoryID = categoryID;
-         this.categoryName = categoryName;
-         this.parentID = parentID;
-         this.isEnd = isEnd;
-         this.categoryStatus = categoryStatus;
-         this.categoryLevel = categoryLevel;
-     }
+        int categoryLevel) {
+        super();
+        this.categoryID = categoryID;
+        this.categoryName = categoryName;
+        this.parentID = parentID;
+        this.isEnd = isEnd;
+        this.categoryStatus = categoryStatus;
+        this.categoryLevel = categoryLevel;
+    }
 
-     @Override
-     public String toString() {
-         return "Category [categoryID=" + categoryID + ", categoryName=" + categoryName + ", parentID=" + parentID
-             + ", isEnd=" + isEnd + ", categoryStatus=" + categoryStatus + ", categoryLevel=" + categoryLevel + "]";
-     }
+    @Override
+    public String toString() {
+        return "Category [categoryID=" + categoryID + ", categoryName=" + categoryName + ", parentID=" + parentID
+            + ", isEnd=" + isEnd + ", categoryStatus=" + categoryStatus + ", categoryLevel=" + categoryLevel + "]";
+    }
 
 }

@@ -1,6 +1,4 @@
- package com.zkdx.database;
-
-
+package com.zkdx.database;
 
 public class SellingStatus {
     private String productName;
@@ -65,5 +63,3 @@ public class SellingStatus {
     }
 
 }
-
- 

@@ -4,6 +4,11 @@ import java.util.*;
 import java.util.List;
 import java.util.TreeMap;
 
+/**
+ * 
+ * @author ts
+ * @date 2019/06/01
+ */
 public interface OrderInfoService {
     public OrderInfoDAO getOrderInfoDAO();
 

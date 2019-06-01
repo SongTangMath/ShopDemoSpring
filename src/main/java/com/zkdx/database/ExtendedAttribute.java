@@ -2,10 +2,13 @@ package com.zkdx.database;
 
 import java.io.Serializable;
 
-public class ExtendedAttribute implements Serializable{
-    /**
-     *
-     */
+/**
+ * 
+ * @author ts
+ * @date 2019/06/01
+ */
+public class ExtendedAttribute implements Serializable {
+
     private static final long serialVersionUID = 1L;
     private int attributeID;
     private int productID;

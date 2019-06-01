@@ -2,9 +2,11 @@ package com.zkdx.database;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
-@Service
+/**
+ * 
+ * @author ts
+ * @date 2019/06/01
+ */
 public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeDAO employeeDAO;
 

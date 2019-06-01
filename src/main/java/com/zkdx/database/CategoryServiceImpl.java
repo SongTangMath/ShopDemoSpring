@@ -56,8 +56,9 @@ public class CategoryServiceImpl implements CategoryService {
             return 0;
         } else if (categoryDAO.getCategoryByName(name) == null) {
             return categoryDAO.insertNewCategory(name, parentName, categoryStatus, categoryLevel);
-        } else
+        } else {
             return 0;
+        }
     }
 
     @Override

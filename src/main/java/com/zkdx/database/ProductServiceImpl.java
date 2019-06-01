@@ -79,12 +79,13 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public int modifyProductIntentoryQuantityByProductId(int id, int number) {
-        if (id <= 0 ) {
+        if (id <= 0) {
             return 0;
-        } else if(productInfoDAO.getProductInfoById(id)!=null){
+        } else if (productInfoDAO.getProductInfoById(id) != null) {
             return productInfoDAO.modifyProductIntentoryQuantityByProductId(id, number);
+        } else {
+            return 0;
         }
-        else return 0;
     }
 
     @Override

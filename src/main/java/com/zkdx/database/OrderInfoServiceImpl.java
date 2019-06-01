@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.util.*;
 
 import org.springframework.stereotype.Service;
-@Service
+
 public class OrderInfoServiceImpl implements OrderInfoService {
     private OrderInfoDAO orderInfoDAO;
 

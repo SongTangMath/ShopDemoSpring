@@ -1,5 +1,9 @@
 package com.zkdx.database;
-
+/**
+ * 
+ * @author ts
+ * @date 2019/06/01
+ */
 public interface UserService {
     public UserDAO getUserDAO();
 

@@ -2,6 +2,11 @@ package com.zkdx.database;
 
 import java.util.List;
 
+/**
+ * 
+ * @author ts
+ * @date 2019/06/01
+ */
 public interface OrderInfoDAO {
     public List<OrderInfo> listOrdersByUsername(String name);
 

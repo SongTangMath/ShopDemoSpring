@@ -8,9 +8,10 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
 @Repository
 public class EmployeeDAOImpl implements EmployeeDAO {
-    @Autowired
+
     private JdbcTemplate jdbcTemplate = null;
     private RowMapper<Employee> rowMapper = null;
 
@@ -68,15 +69,16 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         int salary) {
         String sql =
             "insert into  employee (identity_card,name,password,department_name,job,salary)values(?,?,?,?,?,?)";
-        return jdbcTemplate.update(sql, new Object[] {identityCard, name, password, departmentName, job,salary});
+        return jdbcTemplate.update(sql, new Object[] {identityCard, name, password, departmentName, job, salary});
 
     }
 
     @Override
     public int modifyEmployeeById(int id, String identityCard, String name, String password, String departmentName,
         String job, int salary) {
-        String sql = "update  employee set identity_card=?,name=?,password=?,department_name=?,job=?,salary=? where id=?";
-        return jdbcTemplate.update(sql, new Object[] {identityCard, name, password, departmentName, job,salary, id});
+        String sql =
+            "update  employee set identity_card=?,name=?,password=?,department_name=?,job=?,salary=? where id=?";
+        return jdbcTemplate.update(sql, new Object[] {identityCard, name, password, departmentName, job, salary, id});
     }
 
     @Override

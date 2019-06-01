@@ -2,9 +2,13 @@ package com.zkdx.database;
 
 import java.util.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 @Service
 public class ProductServiceImpl implements ProductService {
+
     private ProductInfoDAO productInfoDAO;
 
     private boolean validateArg(String s) {
@@ -73,12 +77,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public int modifyProductIntentoryQuantityByProductId(int id, int number) {
-        if (id <= 0 || number <= 0) {
+        if (id <= 0 ) {
             return 0;
-        } else {
+        } else if(productInfoDAO.getProductInfoById(id)!=null){
             return productInfoDAO.modifyProductIntentoryQuantityByProductId(id, number);
         }
+        else return 0;
     }
 
     @Override
@@ -130,4 +136,36 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    @Override
+    public int modifyProductStatusByProductId(int id, int status) {
+        if (id <= 0 || status < 0) {
+            return 0;
+        } else {
+            return productInfoDAO.modifyProductStatusByProductId(id, status);
+        }
+    }
+
+    @Override
+    public List<ProductInfo> listStatus0Products() {
+
+        return productInfoDAO.listStatus0Products();
+    }
+
+    @Override
+    public List<ProductInfo> listStatus0ProductsByProductCategory(String pattern) {
+        if (pattern == null) {
+            return new ArrayList<ProductInfo>();
+        } else {
+            return productInfoDAO.listStatus0ProductsByProductCategory(pattern);
+        }
+    }
+
+    @Override
+    public int modifyProductPlanByProductID(int id, String productPlan) {
+        if (id <= 0 || productPlan == null) {
+            return 0;
+        } else {
+            return productInfoDAO.modifyProductPlanByProductID(id, productPlan);
+        }
+    }
 }

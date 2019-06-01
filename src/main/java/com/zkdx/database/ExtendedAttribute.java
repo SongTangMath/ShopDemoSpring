@@ -1,6 +1,12 @@
 package com.zkdx.database;
 
-public class ExtendedAttribute {
+import java.io.Serializable;
+
+public class ExtendedAttribute implements Serializable{
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
     private int attributeID;
     private int productID;
     private String attributeName, attributeValue;

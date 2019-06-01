@@ -1,8 +1,14 @@
  package com.zkdx.database;
 
- public class ProductInfo {
+import java.io.Serializable;
+
+public class ProductInfo implements Serializable{
       
-     private int id;
+     /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    private int id;
      private String productName;     
      private int productStatus;
      private int price;

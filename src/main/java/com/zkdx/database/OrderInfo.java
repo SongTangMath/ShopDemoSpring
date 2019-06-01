@@ -1,8 +1,13 @@
 package com.zkdx.database;
 
+import java.io.Serializable;
 import java.sql.*;
 
-public class OrderInfo {
+public class OrderInfo implements Serializable{
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
     private int orderID;
     private String username;
     private java.sql.Timestamp orderDatetime;

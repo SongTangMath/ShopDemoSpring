@@ -13,8 +13,11 @@ public interface ProductInfoDAO {
     public int modifyProductPictureLinkByProductID(int id, String pictureLink);
 
     public int modifyProductPlanByProductName(String productName, String productPlan);
-
+    public int modifyProductPlanByProductID(int id, String productPlan);
     public int modifyProductIntentoryQuantityByProductId(int id, int number);
+    
+    public int modifyProductStatusByProductId(int id, int status);
+    
 
     public int clearProducts();
 
@@ -26,5 +29,8 @@ public interface ProductInfoDAO {
     public List<ProductInfo> listAllProducts();
 
     public List<ProductInfo> listProductsByProductCategory(String pattern);
+    
+    public List<ProductInfo> listStatus0Products();
+    public List<ProductInfo> listStatus0ProductsByProductCategory(String pattern);
 
 }

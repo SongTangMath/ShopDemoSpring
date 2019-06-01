@@ -3,6 +3,7 @@ package com.zkdx.database;
 import java.util.*;
 
 import org.springframework.stereotype.Service;
+
 @Service
 public class CategoryServiceImpl implements CategoryService {
     private CategoryDAO categoryDAO;
@@ -53,9 +54,10 @@ public class CategoryServiceImpl implements CategoryService {
     public int insertNewCategory(String name, String parentName, int categoryStatus, int categoryLevel) {
         if (!validateArg(name) || parentName == null) {
             return 0;
-        } else {
+        } else if (categoryDAO.getCategoryByName(name) == null) {
             return categoryDAO.insertNewCategory(name, parentName, categoryStatus, categoryLevel);
-        }
+        } else
+            return 0;
     }
 
     @Override

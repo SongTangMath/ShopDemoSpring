@@ -64,4 +64,14 @@
 	<bean id="extendedAttributeService" class="com.zkdx.database.ExtendedAttributeServiceImpl">
 		<property name="extendedAttributeDAO" ref="extendedAttributeDAO"></property>
 	</bean>
+	
+		<bean id="categoryDAO" class="com.zkdx.database.CategoryDAOImpl">
+	<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+	<bean id="categoryService" class="com.zkdx.database.CategoryServiceImpl">
+		<property name="categoryDAO" ref="categoryDAO"></property>
+	</bean>
+	
+	<bean id="springUtil" class="com.zkdx.util.SpringUtil" lazy-init="false">	
+	</bean>
 </beans>

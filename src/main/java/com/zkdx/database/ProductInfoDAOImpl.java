@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.*;
+import org.springframework.transaction.annotation.Transactional;
+
+
 
 public class ProductInfoDAOImpl implements ProductInfoDAO {
     private JdbcTemplate jdbcTemplate = null;
@@ -31,7 +34,7 @@ public class ProductInfoDAOImpl implements ProductInfoDAO {
         try {
             info = jdbcTemplate.queryForObject(sql, rowMapper, id);
         } catch (EmptyResultDataAccessException e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
         return info;
     }
@@ -44,7 +47,7 @@ public class ProductInfoDAOImpl implements ProductInfoDAO {
         try {
             info = jdbcTemplate.queryForObject(sql, rowMapper, name);
         } catch (EmptyResultDataAccessException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
         }
         return info;
     }
@@ -71,9 +74,15 @@ public class ProductInfoDAOImpl implements ProductInfoDAO {
     }
 
     @Override
+    
     public int modifyProductIntentoryQuantityByProductId(int id, int number) {
+        ProductInfo info = getProductInfoById(id);
+        int newIntentoryQuantity = number + info.getInventoryQuantity();
+        if (newIntentoryQuantity < 0) {
+            newIntentoryQuantity = 0;
+        }
         String sql = "update product_info set inventory_quantity=? where id=?";
-        return jdbcTemplate.update(sql, new Object[] {number, id});
+        return jdbcTemplate.update(sql, new Object[] {newIntentoryQuantity, id});
     }
 
     @Override
@@ -111,10 +120,29 @@ public class ProductInfoDAOImpl implements ProductInfoDAO {
         return jdbcTemplate.query(sql, rowMapper, new Object[] {"%" + pattern + "%", "%" + pattern + "%"});
     }
 
-    public static void main(String[] args) {
 
-       
+    @Override
+    public int modifyProductStatusByProductId(int id, int status) {
+        String sql = "update product_info set product_status=? where id=?";
+        return jdbcTemplate.update(sql, new Object[] {status, id});
+    }
 
+    @Override
+    public List<ProductInfo> listStatus0Products() {
+        String sql = "select* from product_info where product_status=0";
+        return jdbcTemplate.query(sql, rowMapper);
+    }
+
+    @Override
+    public List<ProductInfo> listStatus0ProductsByProductCategory(String pattern) {
+        String sql = "select* from product_info where (product_category like ? or product_name like ?) and product_status=0";
+        return jdbcTemplate.query(sql, rowMapper, new Object[] {"%" + pattern + "%", "%" + pattern + "%"});
+    }
+
+    @Override
+    public int modifyProductPlanByProductID(int id, String productPlan) {
+        String sql = "update product_info set product_plan=? where id=?";
+        return jdbcTemplate.update(sql, new Object[] {productPlan, id});
     }
 
 }

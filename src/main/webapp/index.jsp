@@ -31,7 +31,7 @@
 	</div>
 
 	<div style="text-align: center">
-		<a href="register.html">没有账号?注册一个</a> 
+		<a href="register.jsp">没有账号?注册一个</a> 
 		<br> 
 		<a	href="manager_login.jsp">经理在这里登陆</a>
 		 <br> 

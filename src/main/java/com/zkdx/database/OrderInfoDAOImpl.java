@@ -1,8 +1,9 @@
 package com.zkdx.database;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.*;
-
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,7 +24,23 @@ public class OrderInfoDAOImpl implements OrderInfoDAO {
     public OrderInfoDAOImpl() {
         super();
 
-        rowMapper = new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class);
+        rowMapper = new RowMapper<OrderInfo>() {
+
+            @Override
+            public OrderInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
+                OrderInfo info = new OrderInfo();
+                info.setBuyingPrice(rs.getInt("buying_price"));
+                info.setExtendedAttributeString(rs.getString("extended_attribute_string"));
+                info.setOrderDatetime(rs.getTimestamp("order_datetime"));
+                info.setOrderID(rs.getInt("order_id"));
+                info.setPrice(rs.getInt("price"));
+                info.setProductName(rs.getString("product_name"));
+                info.setProductQuantity(rs.getInt("product_quantity"));
+                info.setUsername(rs.getString("username"));
+                return info;
+            }
+
+        };
     }
 
     @Override
@@ -58,10 +75,6 @@ public class OrderInfoDAOImpl implements OrderInfoDAO {
     public int getTotalOrderQuantity() {
         String sql = "select count(*) from order_info";
         return jdbcTemplate.queryForObject(sql, Integer.class);
-    }
-
-    public static void main(String[] args) {
-       
     }
 
 }

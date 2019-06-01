@@ -1,5 +1,7 @@
 package com.zkdx.database;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public interface ExtendedAttributeService {
@@ -14,4 +16,6 @@ public interface ExtendedAttributeService {
     public int insertNewExtendedAttribute(int productID, String attributeName, String attributeValue);
 
     public int deleteExtendedAttributeByID(int id);
+    
+    public HashMap<String, ArrayList<String>> getExtendedAttributeMapByProductID(int id);
 }

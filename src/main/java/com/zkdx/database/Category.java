@@ -1,7 +1,13 @@
  package com.zkdx.database;
 
- public class Category {
-     private int categoryID;
+import java.io.Serializable;
+
+public class Category implements Serializable{
+     /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    private int categoryID;
      private String categoryName;
      private int parentID;
      private int isEnd, categoryStatus;
@@ -55,7 +61,11 @@
          this.categoryLevel = categoryLevel;
      }
 
-     public Category(int categoryID, String categoryName, int parentID, int isEnd, int categoryStatus,
+     public Category() {
+        super();
+    }
+
+    public Category(int categoryID, String categoryName, int parentID, int isEnd, int categoryStatus,
          int categoryLevel) {
          super();
          this.categoryID = categoryID;

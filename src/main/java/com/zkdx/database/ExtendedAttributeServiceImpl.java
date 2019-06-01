@@ -3,6 +3,8 @@ package com.zkdx.database;
 import java.util.*;
 
 import org.springframework.stereotype.Service;
+
+import com.zkdx.database.*;
 @Service
 public class ExtendedAttributeServiceImpl implements ExtendedAttributeService {
     private ExtendedAttributeDAO extendedAttributeDAO;
@@ -56,6 +58,18 @@ public class ExtendedAttributeServiceImpl implements ExtendedAttributeService {
         } else {
             return extendedAttributeDAO.deleteExtendedAttributeByID(id);
         }
+    }
+
+    @Override
+    public HashMap<String, ArrayList<String>> getExtendedAttributeMapByProductID(int id) {
+        HashMap<String, ArrayList<String>> attributeValueMap = new HashMap<String, ArrayList<String>>();
+        
+        List<ExtendedAttribute> list =listAttributesByProductID(id);
+        for (ExtendedAttribute attr : list) {
+            ArrayList<String> temp = new ArrayList<String>(Arrays.asList(attr.getAttributeValue().split(" ")));
+            attributeValueMap.put(attr.getAttributeName(), temp);
+        }
+         return attributeValueMap;
     }
 
 }

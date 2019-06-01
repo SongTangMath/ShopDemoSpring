@@ -90,6 +90,16 @@ $(function(){
 		</form:form>
 		</div>
 		<br><br><br>
+		<div style="text-align: center">
+		根据时间段查询销售情况
+		<form action="${pageContext.request.contextPath}/QuerySellingStatus" target="frame1">
+			查询起始时间(yyyy-mm-dd)<input type="date" name="beginDateString" /> <br>
+			查询结束时间(yyyy-mm-dd)<input type="date" name="endDateString" />
+			<input				type="submit" value="获取结果excel表" />  
+			
+		</form>
+<iframe name="frame1" frameborder="0" id="frame"></iframe>
+	</div>
 		<a href="${pageContext.request.contextPath}/Quit">退出登录并返回首页</a>
 </body>
 </html>

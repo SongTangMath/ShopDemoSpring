@@ -3,6 +3,10 @@ package com.zkdx.database;
 import java.io.Serializable;
 
 public class Employee implements Serializable{
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
     private int id;
     private String identityCard;
     private String name, password, departmentName, job;

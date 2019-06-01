@@ -6,15 +6,47 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
-<context:component-scan base-package="com.zkdx.servlet" use-default-filters="false">
-<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-</context:component-scan>
-<bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-<property name="prefix" value="/WEB-INF/jsp/" />       
-        <property name="suffix" value=".jsp" />
-</bean>
- <mvc:default-servlet-handler/>
-<mvc:annotation-driven></mvc:annotation-driven>
+	<context:component-scan
+		base-package="com.zkdx.servlet">
+
+	</context:component-scan>
+	<bean id="internalResourceViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="UTF-8"></property>
+		<property name="maxUploadSize" value="5242880"></property>
+		<property name="maxInMemorySize" value="40960"></property>
+		<property name="uploadTempDir" value="fileUpload/temp"></property>
+		<property name="resolveLazily" value="true" />
+	</bean>
+
+	<mvc:default-servlet-handler />
+	<mvc:annotation-driven>
+		<mvc:message-converters
+			register-defaults="true">
+			<!-- 配置Fastjson支持 -->
+			<bean
+				class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/html;charset=UTF-8</value>
+						<value>application/json</value>
+					</list>
+				</property>
+				<property name="features">
+					<list>
+						<value>WriteMapNullValue</value>
+						<value>QuoteFieldNames</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
 
 
 

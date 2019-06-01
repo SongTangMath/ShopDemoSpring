@@ -1,5 +1,7 @@
  package com.zkdx.database;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -20,7 +22,20 @@ public class ExtendedAttributeDAOImpl implements ExtendedAttributeDAO {
 
     public ExtendedAttributeDAOImpl() {
         super();
-        rowMapper = new BeanPropertyRowMapper<ExtendedAttribute>(ExtendedAttribute.class);
+      
+        rowMapper = new RowMapper<ExtendedAttribute>() {
+
+            @Override
+            public ExtendedAttribute mapRow(ResultSet rs, int rowNum) throws SQLException {
+                ExtendedAttribute extendedAttribute=new ExtendedAttribute();
+                extendedAttribute.setAttributeID(rs.getInt("attribute_id"));
+                extendedAttribute.setAttributeName(rs.getString("attribute_name"));
+                extendedAttribute.setAttributeValue(rs.getString("attribute_value"));
+                extendedAttribute.setProductID(rs.getInt("product_id"));
+                 return extendedAttribute;
+            }
+            
+        };
     }
     @Override
     public List<ExtendedAttribute> listAttributesByProductName(String name) {
@@ -39,7 +54,7 @@ public class ExtendedAttributeDAOImpl implements ExtendedAttributeDAO {
         String attributeValue) {
         String sql =
             "insert into extended_attribute"
-            + "(product_id,attribute_name, attribute_value) values(?,?,?,?)";
+            + "(product_id,attribute_name, attribute_value) values(?,?,?)";
         return jdbcTemplate.update(sql,new Object[]{productID,attributeName,attributeValue});
     }
 

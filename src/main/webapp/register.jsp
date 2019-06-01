@@ -9,7 +9,7 @@
 <body>
 	<div>
 		<form method="post"
-			action="http://localhost:8080/ShopDemo/RegisterHandler">
+			action="http://localhost:8080/ShopDemoSpring/UserRegister">
 			<div style="text-align: center" id=usernamediv>
 				用户名:<input type="text" name="username" id="username"
 					onBlur="testIfUserNameIsUsed();" />
@@ -36,29 +36,22 @@
 </body>
 
 <script type="text/javascript">
-	console.log("hello world");
+	
 	var nameTag = document.getElementById("username");
-	console.log(nameTag);
-
-	//nameTag.onBlur=
 	function testIfUserNameIsUsed() {
 
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.open("GET",
-				"http://localhost:8080/ShopDemo/RegisterHandler?username="
-						+ nameTag.value, true);
+				"http://localhost:8080/ShopDemoSpring/testUsername/"+nameTag.value, true);
 
 		console.log(nameTag.value);
 		xmlhttp.send(null);
-		xmlhttp.onreadystatechange = function() {
-			console.log("xmlhttp.readyState:" + xmlhttp.readyState);
-			console.log("xmlhttp.status:" + xmlhttp.status);
+		xmlhttp.onreadystatechange = function() {			
 			if (xmlhttp.readyState == 4) {
 				if (xmlhttp.status == 200) {
 					console.log(xmlhttp.responseText);
 					var testIfUsed = document.getElementById("testIfUsed");
-					if (xmlhttp.responseText == "true") {
-						console.log("used already");
+					if (xmlhttp.responseText == "true") {						
 						testIfUsed.innerHTML = "已经被占用";
 					} else
 						testIfUsed.innerHTML = "";
